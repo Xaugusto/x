@@ -143,7 +143,7 @@ $carrinho = isset($_GET['carrinho']) ? $_GET['carrinho'] : 0; // Atribui 0 se n√
     <header>
         <h1>Seu Carrinho</h1>
         <nav>
-            <a href="pagina_principal.php">Inicio</a>
+            <a href="index.php">Inicio</a>
             <a href="cadastro_login.php">Cadastro</a>
             <a href="contato.html">Contato</a>
             <a href="logout.php">Logout</a>
