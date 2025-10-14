@@ -1,4 +1,4 @@
- <?php
+<?php
 include('sessao.php');
 $login = isset($_GET['login']) ? $_GET['login'] : 0;?>
 <!DOCTYPE html>
