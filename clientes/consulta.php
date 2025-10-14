@@ -67,7 +67,7 @@ include ('sessao.php');
 </head>
 <body>
     <div class="link-container">
-        <a href="../pagina_principal.php">Página Principal</a>
+        <a href="../index.php">Página Principal</a>
     </div>
     <div class="container">
         <h1>Lista de Clientes</h1>
