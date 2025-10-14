@@ -8,7 +8,7 @@ $con = $conexao;
 $sql = "insert into carrinho (id_cli, id_prod) values ($id_cli, $id_prod)";
 $exe = mysqli_query($con, $sql);
 if($exe){
-	header('Location: pagina_principal.php?login=2');
+	header('Location: index.php?login=2');
 }
 else{
 	echo"erro<br>$sql";
