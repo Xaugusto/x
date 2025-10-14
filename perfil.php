@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="link-container">
-        <a href="pagina_principal.php" class="link-principal">Página Principal</a>
+        <a href="index.php" class="link-principal">Página Principal</a>
     </div>
     <div class="container">
         <h1>Página de Perfil</h1>
