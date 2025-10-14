@@ -12,7 +12,7 @@ if($res['nome_cli'] != NULL){
    $_SESSION['idcli'] = $res['id_cli'];
    $_SESSION['user'] = $res['user_type'];
    
-   header("Location: pagina_principal.php?login=1");
+   header("Location: index.php?login=1");
 }
 else{
    echo "Login e/ou senha incorretos";
