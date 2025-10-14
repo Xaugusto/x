@@ -1,3 +1,9 @@
 <?php
-  $conexao = mysqli_connect('192.168.1.109:3306', 'root', 'root', 'tcc_3D')
+  $host = $_ENV[ 'MYSQLHOST'];
+Şusername = $_ENV[ 'MYSQLUSER'];
+$password = $_ENV['MYSQLPASSWORD'];
+$dbname = $_ENV[ 'MYSQLDATABASE'];
+$port = $_ENV['MYSQLPORT'];
+$conexao = mysqli_connect($host, $username
+Spassword, > $dbname , $port);
 ?>
