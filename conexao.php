@@ -1,4 +1,4 @@
-<?php
+ <?php
   $host = $_ENV[ 'MYSQLHOST'];
 Şusername = $_ENV[ 'MYSQLUSER'];
 $password = $_ENV['MYSQLPASSWORD'];
