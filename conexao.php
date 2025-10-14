@@ -1,8 +1,8 @@
 <?php
-  $host = $_ENV["MYSQLHOST"];
-  $username = $_ENV["MYSQLUSER"];
-  $password = $_ENV["MYSQLPASSWORD"];
-  $dbname = $_ENV[ "MYSQLDATABASE"];
-  $port = $_ENV["MYSQLPORT"];
+  $host = getenv["MYSQLHOST"];
+  $username = getenv["MYSQLUSER"];
+  $password = getenv["MYSQLPASSWORD"];
+  $dbname = getenv[ "MYSQLDATABASE"];
+  $port = getenv["MYSQLPORT"];
   $conexao = mysqli_connect($host, $username, $password, $dbname, $port);
 ?>
