@@ -4,6 +4,5 @@
 $password = $_ENV['MYSQLPASSWORD'];
 $dbname = $_ENV[ 'MYSQLDATABASE'];
 $port = $_ENV['MYSQLPORT'];
-$conexao = mysqli_connect($host, $username
-Spassword, > $dbname , $port);
+$conexao = mysqli_connect($host, $username, $password, $dbname, $port);
 ?>
