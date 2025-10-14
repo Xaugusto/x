@@ -150,7 +150,7 @@
 <body>
 	<div class="link-container">
 	<a href="inserir_propiedades/inserir_categoria.php" class="link-principal">Adicionar Categorias</a>
-    <a href="../pagina_principal.php" class="link-principal">Página Principal</a>
+    <a href="../index.php" class="link-principal">Página Principal</a>
     <a href="inserir_propiedades/inserir_console.php" class="link-principal">Adicionar Consoles</a>
 
 	</div>
