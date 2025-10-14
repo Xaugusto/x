@@ -11,7 +11,7 @@
     if($exe == 1){
         $cad = 1;
     
-       header("Location: pagina_principal.php?$cad=".urlencode($valor));
+       header("Location: index.php?$cad=".urlencode($valor));
     }
     else{
         echo"Deu pobrema ai";
