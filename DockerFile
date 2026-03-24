@@ -4,33 +4,41 @@ FROM php:8.1-apache
 # Definir diretório de trabalho
 WORKDIR /var/www/html
 
-# Instalar extensões PHP necessárias
+# Instalar extensões PHP necessárias e apache2
 RUN apt-get update && apt-get install -y \
+    apache2 \
+    apache2-utils \
     mysql-client \
     && docker-php-ext-install mysqli pdo pdo_mysql \
     && a2enmod rewrite \
+    && a2enmod headers \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar arquivo de configuração do Apache
-RUN echo '<Directory /var/www/html>\n\
-    Options Indexes FollowSymLinks\n\
-    AllowOverride All\n\
-    Require all granted\n\
-</Directory>' > /etc/apache2/conf-available/app.conf && \
-    a2enconf app
+# Configurar Apache para escutar na porta 8080
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf && \
+    sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf
+
+# Configurar DocumentRoot
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html|g' /etc/apache2/sites-available/000-default.conf
 
 # Copiar os arquivos da aplicação
 COPY . .
 
 # Definir permissões
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
+
+# Habilitar .htaccess
+RUN a2enmod rewrite && \
+    echo '<Directory /var/www/html>\n\
+    Options -Indexes +FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>' > /etc/apache2/conf-available/app.conf && \
+    a2enconf app
 
 # Expor porta 8080 (Railway usa esta porta)
 EXPOSE 8080
 
-# Modificar porta padrão do Apache para 8080
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf && \
-    sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf
-
-# Iniciar Apache
-CMD ["apache2-foreground"]
+# Iniciar Apache em primeiro plano
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
