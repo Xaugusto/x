@@ -37,8 +37,12 @@ RUN a2enmod rewrite && \
 </Directory>' > /etc/apache2/conf-available/app.conf && \
     a2enconf app
 
+# Copiar e dar permissão ao script de inicialização
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Expor porta 8080 (Railway usa esta porta)
 EXPOSE 8080
 
 # Iniciar Apache em primeiro plano
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
