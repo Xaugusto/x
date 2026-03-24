@@ -81,7 +81,7 @@ $login = isset($_GET['login']) ? $_GET['login'] : 0;?>
           <a href="logout.php">Logout</a>
           <?php
           $user = $_SESSION['user'] ? $_SESSION['user'] : null;
-          if($user == 2){
+          if($user == 1){
             echo "<a href='produtos/consulta.php'>Meus Produtos</a>";
             echo "<a href='clientes/consulta.php'>Clientes</a>";
           }
@@ -101,13 +101,13 @@ $login = isset($_GET['login']) ? $_GET['login'] : 0;?>
   </div>
 
   <section id="produtos">
-      <div class="produtos">
+      <div class="produtos">    
   <?php
               include('conexao.php');
               if (!$conexao) {
                   die("Erro de conexão: " . mysqli_connect_error());
               }
-              $sql = "SELECT * FROM produtos WHERE categoria=3";
+              $sql = "SELECT * FROM produtos WHERE categoria=1";
               $executar = mysqli_query($conexao, $sql);
 
               while ($res = mysqli_fetch_array($executar)) {
@@ -125,7 +125,7 @@ $login = isset($_GET['login']) ? $_GET['login'] : 0;?>
                   echo "</div>";
               }
 
-            
+              mysqli_close($conexao);
           ?>
       </div>
   </section>
@@ -135,10 +135,12 @@ $login = isset($_GET['login']) ? $_GET['login'] : 0;?>
   <section id="consoles">
       <div class="consoles">
             <?php
+              $conexao = mysqli_connect('localhost', 'root', '', 'tcc_3D');
+              
               if (!$conexao) {
                   die("Erro de conexão: " . mysqli_connect_error());
               }
-              $sql_2 = "SELECT * FROM produtos WHERE categoria=2 OR categoria=1";
+              $sql_2 = "SELECT * FROM produtos WHERE categoria=2";
               $executar = mysqli_query($conexao, $sql_2);
 
               while ($res = mysqli_fetch_array($executar)) {
