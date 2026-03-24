@@ -1,4 +1,36 @@
-FROM php:8.2-apache
-RUN docker-php-ext-install mysqli
-COPY . /var/www/html/
-EXPOSE 80
+# Use PHP 8.1 com Apache
+FROM php:8.1-apache
+
+# Definir diretório de trabalho
+WORKDIR /var/www/html
+
+# Instalar extensões PHP necessárias
+RUN apt-get update && apt-get install -y \
+    mysql-client \
+    && docker-php-ext-install mysqli pdo pdo_mysql \
+    && a2enmod rewrite \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar arquivo de configuração do Apache
+RUN echo '<Directory /var/www/html>\n\
+    Options Indexes FollowSymLinks\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>' > /etc/apache2/conf-available/app.conf && \
+    a2enconf app
+
+# Copiar os arquivos da aplicação
+COPY . .
+
+# Definir permissões
+RUN chown -R www-data:www-data /var/www/html
+
+# Expor porta 8080 (Railway usa esta porta)
+EXPOSE 8080
+
+# Modificar porta padrão do Apache para 8080
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf && \
+    sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf
+
+# Iniciar Apache
+CMD ["apache2-foreground"]

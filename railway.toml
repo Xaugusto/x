@@ -1,0 +1,16 @@
+[build]
+dockerfile = "Dockerfile"
+
+[deploy]
+startCommand = "apache2-foreground"
+port = 8080
+
+[[services]]
+name = "web"
+builder = "dockerfile"
+
+[variables]
+MYSQLHOST = "localhost"
+MYSQLPORT = "3306"
+MYSQLUSER = "root"
+MYSQLDATABASE = "railway"
